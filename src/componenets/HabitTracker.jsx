@@ -64,13 +64,15 @@ const HabitTracker = () => {
       if(habitId === a.id){
         const isDayCompleted = a.completed.includes(day)
         const completedHabit = isDayCompleted ? a.completed.filter(d => d !== day) : [...a.completed, day]
-        
+
+        const newStreak = completedHabit.length
         return {
           ...a, 
-          completed : completedHabit
+          completed : completedHabit,
+          streak : newStreak
         }
       }
-      return a      
+      return a   
     })
     setHabit(habitUpdate)    
       }      
@@ -98,6 +100,7 @@ const HabitTracker = () => {
                         <th key={weakIndex}>{weak}</th>
                       ))
                     }
+                    <th>Finished</th>
                     <th>Action</th>
                    </tr>
               </thead>
@@ -112,6 +115,7 @@ const HabitTracker = () => {
                                 ><input type="checkbox" checked={habit.completed.includes(day)} onChange={() => handleComplete(habit.id, day)} /></td>
                                ))
                         }
+                        <td>{habit.streak}</td>
                         <td className='button-td'><button className='edit-btn' onClick={() => handleEdit(habit.id)}>Edit</button> <button className='delete-btn' onClick={() => handleDelete(habit.id)}>Delete</button></td>
                     </tr>
                   ))
